@@ -68,13 +68,13 @@ const SignUpForm = () => {
         <Form>
           <h1 className="text-center mb-4">{t('signup.header')}</h1>
           <div className="form-floating mb-2 form-group">
-            <label htmlFor="username">{t('forms.username.label')}</label>
             <Field
+              aria-label={t('forms.username.label')}
               id="username"
               className="form-control"
               name="username"
               innerRef={inputRef}
-              // placeholder={t('forms.username.placeholder')}
+              placeholder={t('forms.username.placeholder')}
             />
           </div>
           {touched.username && errors.username && (
@@ -83,25 +83,24 @@ const SignUpForm = () => {
           </div>
           )}
           <div className="form-floating mb-2 form-group ">
-            <label htmlFor="password">{t('forms.password.label')}</label>
             <Field
+              aria-label={t('forms.password.label')}
               id="password"
               className="form-control"
               name="password"
-              // placeholder={t('forms.password.placeholder')}
+              placeholder={t('forms.password.placeholder')}
             />
           </div>
           {touched.password && errors.password && (
           <div className="mb-2 text-danger">{errors.password}</div>
           )}
           <div className="form-floating mb-2 form-group">
-            <label htmlFor="passwordConfirmation">{t('forms.passwordConfirmation.label')}</label>
-
             <Field
+              aria-label={t('forms.passwordConfirmation.label')}
               id="passwordConfirmation"
               className="form-control"
               name="passwordConfirmation"
-              // placeholder={t('forms.passwordConfirmation.placeholder')}
+              placeholder={t('forms.passwordConfirmation.placeholder')}
             />
           </div>
           {touched.passwordConfirmation && errors.passwordConfirmation && (

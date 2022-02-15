@@ -72,27 +72,26 @@ const LoginForm = () => {
         <Form>
           <h1 className="text-center mb-4">{t('login.header')}</h1>
           <div className="form-floating mb-2 form-group">
-            <label htmlFor="username">{t('forms.login.label')}</label>
             <Field
+              aria-label={t('forms.login.label')}
               id="username"
               className="form-control"
               name="username"
               innerRef={inputRef}
-              // placeholder={t('forms.login.placeholder')}
+              placeholder={t('forms.login.placeholder')}
             />
-
           </div>
 
           {touched.username && errors.username && (
           <div className="mb-2 text-danger">{errors.username}</div>
           )}
           <div className="form-floating mb-2 form-group">
-            <label className="form-label" htmlFor="password">{t('forms.password.label')}</label>
             <Field
+              aria-label={t('forms.password.label')}
               id="password"
               className="form-control"
               name="password"
-              // placeholder={t('forms.password.placeholder')}
+              placeholder={t('forms.password.placeholder')}
             />
           </div>
 
