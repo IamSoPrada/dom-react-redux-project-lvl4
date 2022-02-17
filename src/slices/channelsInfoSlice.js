@@ -61,7 +61,7 @@ export const channelsSlice = createSlice({
         state.error = null;
       })
       .addCase(getChannels.rejected, (state, { error }) => {
-        state.loading = 'error';
+        state.status = 'error';
         state.error = error.message;
       });
   },
