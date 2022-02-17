@@ -23,8 +23,6 @@ const socketApi = (socket, i18nInstance) => {
     toast.success(i18nInstance.t('toastify.channels.rename'));
   });
   socket.on(ADD_CHANNEL, (channel) => {
-    // const randomNum = () => Math.floor(Math.random() * 25);
-    // const newChannel = { ...channel, id: randomNum() }; // в тестах захардкожен id при создании канала
     dispatch(channelsActions.createNewChannel(channel));
     toast.success(i18nInstance.t('toastify.channels.add'));
   });
