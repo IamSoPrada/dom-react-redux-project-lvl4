@@ -42,12 +42,16 @@ const LoginForm = () => {
       toast.success(t('common.success'));
     } catch ({ response }) {
       const { data } = response;
-      if (data.statusCode === 401) {
-        setErrors({ username: t('forms.errors.login') });
-        toast.error(t('common.error'));
-      } else {
-        // toast.error(t('errors.network'));
-        toast.error(t('forms.errors.login'));
+      switch (data.statusCode) {
+        case 401:
+          setErrors({ username: t('forms.errors.login') });
+          toast.error(t('common.error'));
+          break;
+        case 500:
+          toast.error(t('errors.network'));
+          break;
+        default:
+          return null;
       }
     }
   };
