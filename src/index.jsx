@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import '../assets/application.scss';
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next, I18nextProvider } from 'react-i18next';
+
 import { Provider as StoreProvider } from 'react-redux';
 import { socketApi } from './socketApi.js';
 import ru from './locales/ru.js';
@@ -46,9 +47,11 @@ const init = async (socket) => {
       <ErrorBoundary level="warn" fallbackUI={ErrorPage}>
         <AuthProvider>
           <StoreProvider store={store}>
-            <SocketProvider socket={socketApi(socket, i18nInstance)}>
-              <App />
-            </SocketProvider>
+            <I18nextProvider i18n={i18nInstance}>
+              <SocketProvider socket={socketApi(socket, i18nInstance)}>
+                <App />
+              </SocketProvider>
+            </I18nextProvider>
           </StoreProvider>
         </AuthProvider>
       </ErrorBoundary>

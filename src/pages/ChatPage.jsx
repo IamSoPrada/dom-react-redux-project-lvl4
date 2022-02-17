@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -7,7 +7,7 @@ import ModalContainer from '../components/modals/ModalContainer.jsx';
 import { getChannels } from '../slices/channelsInfoSlice.js';
 
 const ChatPage = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const isOpened = useSelector(({ modal }) => modal.isOpened);
   const modalType = useSelector(({ modal }) => modal.type);
