@@ -51,6 +51,7 @@ const LoginForm = () => {
           toast.error(t('errors.network'));
           break;
         default:
+          toast.error(t('forms.errors.login'));
           toast.error(t('common.error'));
       }
     }
