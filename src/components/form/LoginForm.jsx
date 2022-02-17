@@ -45,13 +45,13 @@ const LoginForm = () => {
       switch (data.statusCode) {
         case 401:
           setErrors({ username: t('forms.errors.login') });
-          toast.error(t('common.error'));
+          toast.error(t('forms.errors.login'));
           break;
         case 500:
           toast.error(t('errors.network'));
           break;
         default:
-          return null;
+          toast.error(t('common.error'));
       }
     }
   };
