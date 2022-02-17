@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Chat from '../components/chat/index.jsx';
@@ -6,6 +7,7 @@ import ModalContainer from '../components/modals/ModalContainer.jsx';
 import { getChannels } from '../slices/channelsInfoSlice.js';
 
 const ChatPage = () => {
+    const { t } = useTranslation();
   const dispatch = useDispatch();
   const isOpened = useSelector(({ modal }) => modal.isOpened);
   const modalType = useSelector(({ modal }) => modal.type);
@@ -15,10 +17,13 @@ const ChatPage = () => {
       case 'idle':
         return dispatch(getChannels());
       case 'loading':
-        return toast.info('Загрузка каналов...');
+        return toast.info(t('toastify.channels.channelsLoading'));
       case 'success':
         toast.dismiss();
-        return toast.success('Каналы загружены');
+        return toast.success(t('toastify.channels.channelsLoaded'));
+      case 'error':
+        toast.dismiss();
+        return toast.error(t('toastify.channels.channelsNetworkError'));
       default:
         return null;
     }

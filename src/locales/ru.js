@@ -107,6 +107,9 @@ const ru = {
         add: 'Канал создан',
         rename: 'Канал переименован',
         delete: 'Канал удалён',
+        channelsLoading: 'Загрузка каналов...',
+        channelsLoaded: 'Каналы загружены',
+        channelsNetworkError: 'Ошибка соединения',
       },
     },
     404: {

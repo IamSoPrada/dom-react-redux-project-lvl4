@@ -16,7 +16,7 @@ export const getChannels = createAsyncThunk('channelsInfo/setInitialState', asyn
     const response = await axios.get(routes.dataPath(), config);
     const { data } = response;
     return data;
-  } catch (e) {
+  } catch ({ response }) {
     throw new Error('Упс.. Что-то пошло не так.');
   }
 });
@@ -55,7 +55,7 @@ export const channelsSlice = createSlice({
       .addCase(getChannels.fulfilled, (state, { payload }) => {
         state.channels = payload.channels;
         state.currentChannelId = payload.currentChannelId;
-        state.status = 'success';
+        state.status = 'error';
         state.error = null;
       })
       .addCase(getChannels.rejected, (state, { error }) => {
