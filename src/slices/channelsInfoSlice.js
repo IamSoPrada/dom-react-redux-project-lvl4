@@ -55,7 +55,7 @@ export const channelsSlice = createSlice({
       .addCase(getChannels.fulfilled, (state, { payload }) => {
         state.channels = payload.channels;
         state.currentChannelId = payload.currentChannelId;
-        state.status = 'error';
+        state.status = 'success';
         state.error = null;
       })
       .addCase(getChannels.rejected, (state, { error }) => {
