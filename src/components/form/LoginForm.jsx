@@ -15,7 +15,7 @@ const LoginForm = () => {
   const { isAuthenticated, setCredentials } = useContext(AuthContext);
 
   const location = useLocation();
-  const formSchema = createValidationSchema(t);
+  const formSchema = createValidationSchema(t, 'login');
 
   const handleFormSubmit = async (values, { setErrors }) => {
     try {

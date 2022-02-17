@@ -15,7 +15,7 @@ const SignUpForm = () => {
   const { isAuthenticated, setCredentials } = useContext(AuthContext);
 
   const location = useLocation();
-  const formShema = FormValidationSchema(t);
+  const formShema = FormValidationSchema(t, 'signup');
 
   const handleFormSubmit = async (values, { setErrors }) => {
     try {
