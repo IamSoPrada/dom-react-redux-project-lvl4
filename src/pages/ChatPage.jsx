@@ -28,7 +28,6 @@ const ChatPage = () => {
         return null;
     }
   }, [status]);
-
   return (
     <>
       <Chat />

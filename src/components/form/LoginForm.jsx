@@ -4,41 +4,24 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
 import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import * as Yup from 'yup';
 import axios from 'axios';
+import createValidationSchema from './formValidationSchema.js';
 import AuthContext from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
 
 const LoginForm = () => {
   const inputRef = useRef(null);
   const { t } = useTranslation();
-  const {
-    setIsAuthenticated, isAuthenticated, setToken, setUsername,
-  } = useContext(AuthContext);
+  const { isAuthenticated, setCredentials } = useContext(AuthContext);
 
   const location = useLocation();
-
-  const SignInSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(3, t('forms.username.validation.minLength'))
-      .max(20, t('forms.username.validation.maxLength'))
-      .required(t('forms.validation.required')),
-    password: Yup.string()
-      .min(3, t('forms.password.validation.minLength'))
-      .max(20, t('forms.password.validation.maxLength'))
-      .required(t('forms.validation.required')),
-  });
+  const formSchema = createValidationSchema(t);
 
   const handleFormSubmit = async (values, { setErrors }) => {
     try {
       const response = await axios.post(routes.loginPath(), values);
       const { data } = response;
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', data.username);
-      localStorage.setItem('isAuthenticated', true);
-      setIsAuthenticated(true);
-      setToken(data.token);
-      setUsername(data.username);
+      setCredentials(data);
       toast.success(t('common.success'));
     } catch ({ response }) {
       const { data } = response;
@@ -60,14 +43,14 @@ const LoginForm = () => {
   useEffect(() => inputRef.current?.focus(), []);
 
   if (isAuthenticated) return <Navigate to="/" state={{ from: location }} />;
-
+  console.log(location);
   return (
     <Formik
       initialValues={{
         username: '',
         password: '',
       }}
-      validationSchema={SignInSchema}
+      validationSchema={formSchema}
       onSubmit={(values, { setErrors, setSubmitting }) => {
         handleFormSubmit(values, { setErrors });
         setSubmitting(false);

@@ -3,44 +3,25 @@ import React, { useContext, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
 import { Navigate, useLocation } from 'react-router-dom';
-import * as Yup from 'yup';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import FormValidationSchema from './formValidationSchema.js';
 import AuthContext from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
 
 const SignUpForm = () => {
   const inputRef = useRef(null);
   const { t } = useTranslation();
-  const {
-    setIsAuthenticated, isAuthenticated, setToken, setUsername,
-  } = useContext(AuthContext);
+  const { isAuthenticated, setCredentials } = useContext(AuthContext);
 
   const location = useLocation();
-
-  const SignUpSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(3, t('forms.username.validation.minLength'))
-      .max(20, t('forms.username.validation.maxLength'))
-      .required(t('forms.validation.required')),
-    password: Yup.string()
-      .min(6, t('forms.password.validation.minLength'))
-      .max(50, t('forms.password.validation.maxLength'))
-      .required(t('forms.validation.required')),
-    passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref('password'), null], t('forms.passwordConfirmation.validation.match')),
-  });
+  const formShema = FormValidationSchema(t);
 
   const handleFormSubmit = async (values, { setErrors }) => {
     try {
       const response = await axios.post(routes.signUpPath(), values);
       const { data } = response;
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', data.username);
-      localStorage.setItem('isAuthenticated', true);
-      setIsAuthenticated(true);
-      setToken(data.token);
-      setUsername(data.username);
+      setCredentials(data);
       toast.success(t('common.success'));
     } catch (error) {
       setErrors({ username: t('forms.errors.duplicateUser') });
@@ -58,7 +39,7 @@ const SignUpForm = () => {
         password: '',
         passwordConfirmation: '',
       }}
-      validationSchema={SignUpSchema}
+      validationSchema={formShema}
       onSubmit={(values, { setErrors, setSubmitting }) => {
         handleFormSubmit(values, { setErrors });
         setSubmitting(false);
