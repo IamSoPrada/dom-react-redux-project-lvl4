@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import Chat from '../components/chat/index.jsx';
-import ModalContainer from '../components/modals/ModalContainer.jsx';
+import Chat from '../modules/chat/index.jsx';
+import ModalContainer from '../modules/modals/ModalContainer.jsx';
 import { getChannels } from '../slices/channelsInfoSlice.js';
 
 const ChatPage = () => {

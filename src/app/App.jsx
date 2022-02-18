@@ -6,11 +6,11 @@ import { injectStyle } from 'react-toastify/dist/inject-style';
 import AuthorizationPage from '../pages/AuthorizationPage.jsx';
 import ChatPage from '../pages/ChatPage.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
-import Layout from '../components/Layout.jsx';
-import PrivateRoute from '../components/private-route/PrivateRoute.jsx';
+import Layout from '../modules/Layout.jsx';
+import PrivateRoute from '../modules/private-route/PrivateRoute.jsx';
 
-import LoginForm from '../components/form/LoginForm.jsx';
-import SignUpForm from '../components/form/SignUpForm.jsx';
+import LoginForm from '../modules/form/LoginForm.jsx';
+import SignUpForm from '../modules/form/SignUpForm.jsx';
 
 const App = () => {
   useEffect(() => {

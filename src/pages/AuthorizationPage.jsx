@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../components/header/Header.jsx';
-import FormContainer from '../components/form/FormContainer.jsx';
+import Header from '../modules/header/Header.jsx';
+import FormContainer from '../modules/form/FormContainer.jsx';
 
 const AuthorizationPage = ({ children }) => (
   <div className="d-flex flex-column h-100">
