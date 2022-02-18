@@ -8,7 +8,6 @@ const Layout = ({ children }) => (
 
   <div className="d-flex flex-column h-100">
     <Header />
-
     <Outlet>{children}</Outlet>
     <ToastContainer autoClose={2000} />
   </div>

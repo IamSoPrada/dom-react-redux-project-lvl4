@@ -7,6 +7,13 @@ import SocketContext from '../../contexts/socketContext.jsx';
 import CloseButton from './common/components/CloseButton.jsx';
 import Label from '../common/components/Label.jsx';
 import ButtonForm from '../common/components/Button.jsx';
+import Modal from './common/components/Modal.jsx';
+import ModalContent from './common/components/ModalContent.jsx';
+import ModalHeader from './common/components/ModalHeader.jsx';
+import ModalBody from './common/components/ModalBody.jsx';
+import ModalTitle from './common/components/ModalTitle.jsx';
+import ButtonGroup from './common/components/ButtonGroup.jsx';
+
 import { handleCloseModal } from './utils.js';
 import { socketEmitEvent } from '../../socketApi.js';
 import { REMOVE_CHANNEL } from '../../types.js';
@@ -24,18 +31,17 @@ const DeleteChannelModal = () => {
     socketEmitEvent(socket, REMOVE_CHANNEL, channel);
     handleCloseModal();
   };
-
   return (
-    <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">{t('modals.remove.header')}</h5>
+    <Modal>
+      <ModalContent>
+        <ModalHeader>
+          <ModalTitle>{t('modals.remove.header')}</ModalTitle>
           <CloseButton onClick={handleCloseModal} />
-        </div>
-        <div className="modal-body">
+        </ModalHeader>
+        <ModalBody>
           <p>{t('modals.remove.confirm')}</p>
           <form onSubmit={onSubmitForm} className="py-1 border rounded-2">
-            <div className="mt-3 d-flex justify-content-between">
+            <ButtonGroup>
               <ButtonForm
                 type="danger"
               >
@@ -43,11 +49,11 @@ const DeleteChannelModal = () => {
                 <Label>{t('common.delete')}</Label>
               </ButtonForm>
               <ButtonForm onClick={handleCloseModal} type="secondary">{t('common.cancel')}</ButtonForm>
-            </div>
+            </ButtonGroup>
           </form>
-        </div>
-      </div>
-    </div>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 };
 

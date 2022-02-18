@@ -8,9 +8,16 @@ import filter from 'leo-profanity';
 import createModalValidationSchema from './modalValidationSchema.js';
 import ErrorMessageContainer from '../common/components/ErrorMessageContainer.jsx';
 import InputFieldWrapper from '../common/components/InputFieldWrapper.jsx';
+import ModalBody from './common/components/ModalBody.jsx';
+import ModalHeader from './common/components/ModalHeader.jsx';
+import ModalContent from './common/components/ModalContent.jsx';
 import ButtonForm from '../common/components/Button.jsx';
+import ButtonGroup from './common/components/ButtonGroup.jsx';
 import CloseButton from './common/components/CloseButton.jsx';
 import SocketContext from '../../contexts/socketContext.jsx';
+import ModalTitle from './common/components/ModalTitle.jsx';
+import Modal from './common/components/Modal.jsx';
+
 import { handleCloseModal } from './utils.js';
 import { socketEmitEvent } from '../../socketApi.js';
 import { ADD_CHANNEL } from '../../types.js';
@@ -43,13 +50,13 @@ const AddChannelModal = () => {
       }}
     >
       {({ errors, touched, isSubmitting }) => (
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{t('modals.add.header')}</h5>
+        <Modal>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>{t('modals.add.header')}</ModalTitle>
               <CloseButton onClick={handleCloseModal} />
-            </div>
-            <div className="modal-body">
+            </ModalHeader>
+            <ModalBody>
               <Form className="form-group" autoComplete="off">
                 <InputFieldWrapper>
                   <Field
@@ -63,7 +70,7 @@ const AddChannelModal = () => {
                 {touched.name && errors.name && (
                 <ErrorMessageContainer>{errors.name}</ErrorMessageContainer>
                 )}
-                <div className="mt-3 d-flex justify-content-between">
+                <ButtonGroup>
                   <ButtonForm
                     type="success"
                     disabled={isSubmitting}
@@ -71,11 +78,11 @@ const AddChannelModal = () => {
                     {t('common.send')}
                   </ButtonForm>
                   <ButtonForm onClick={handleCloseModal} type="secondary">{t('common.cancel')}</ButtonForm>
-                </div>
+                </ButtonGroup>
               </Form>
-            </div>
-          </div>
-        </div>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       )}
     </Formik>
   );

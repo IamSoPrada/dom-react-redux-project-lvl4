@@ -10,7 +10,15 @@ import Label from '../common/components/Label.jsx';
 import ErrorMessageContainer from '../common/components/ErrorMessageContainer.jsx';
 import InputFieldWrapper from '../common/components/InputFieldWrapper.jsx';
 import ButtonForm from '../common/components/Button.jsx';
+import CloseButton from './common/components/CloseButton.jsx';
 import SocketContext from '../../contexts/socketContext.jsx';
+import Modal from './common/components/Modal.jsx';
+import ModalContent from './common/components/ModalContent.jsx';
+import ModalHeader from './common/components/ModalHeader.jsx';
+import ModalTitle from './common/components/ModalTitle.jsx';
+import ModalBody from './common/components/ModalBody.jsx';
+import ButtonGroup from './common/components/ButtonGroup.jsx';
+
 import { handleCloseModal } from './utils.js';
 import { socketEmitEvent } from '../../socketApi.js';
 import { RENAME_CHANNEL } from '../../types.js';
@@ -46,18 +54,13 @@ const RenameChannelModal = () => {
       }}
     >
       {({ errors, touched, isSubmitting }) => (
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">{t('modals.rename.header')}</h5>
-              <button onClick={handleCloseModal} type="button" className="p-0 text-primary btn btn-group-vertical" data-bs-dismiss="modal" aria-label="Close">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                </svg>
-              </button>
-            </div>
-            <div className="modal-body">
+        <Modal>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>{t('modals.rename.header')}</ModalTitle>
+              <CloseButton onClick={handleCloseModal} />
+            </ModalHeader>
+            <ModalBody>
               <Form className="form-group" autoComplete="off">
                 <InputFieldWrapper>
                   <Field
@@ -71,7 +74,7 @@ const RenameChannelModal = () => {
                 {touched.name && errors.name && (
                 <ErrorMessageContainer>{errors.name}</ErrorMessageContainer>
                 )}
-                <div className="mt-3 d-flex justify-content-between">
+                <ButtonGroup>
                   <ButtonForm
                     type="success"
                     disabled={isSubmitting}
@@ -80,11 +83,11 @@ const RenameChannelModal = () => {
                     <Label>{t('common.send')}</Label>
                   </ButtonForm>
                   <ButtonForm onClick={handleCloseModal} type="secondary">{t('common.cancel')}</ButtonForm>
-                </div>
+                </ButtonGroup>
               </Form>
-            </div>
-          </div>
-        </div>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       )}
     </Formik>
   );
