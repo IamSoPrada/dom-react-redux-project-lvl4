@@ -4,8 +4,12 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import filter from 'leo-profanity';
+import createModalValidationSchema from './modalValidationSchema.js';
+import Label from '../common/components/Label.jsx';
+import ErrorMessageContainer from '../common/components/ErrorMessageContainer.jsx';
+import InputFieldWrapper from '../common/components/InputFieldWrapper.jsx';
+import ButtonForm from '../common/components/Button.jsx';
 import SocketContext from '../../contexts/socketContext.jsx';
 import { handleCloseModal } from './utils.js';
 import { socketEmitEvent } from '../../socketApi.js';
@@ -18,14 +22,7 @@ const RenameChannelModal = () => {
   const channelId = useSelector(({ modal }) => modal.channelId);
   const channels = useSelector(({ channelsInfo }) => channelsInfo.channels);
   const channelsNames = channels.map(({ name }) => name);
-  const RenameChannelSchema = Yup.object().shape({
-    name: Yup.string()
-      .trim()
-      .min(2, t('modals.validation.minLength'))
-      .max(18, t('modals.validation.maxLength'))
-      .required(t('modals.validation.required'))
-      .notOneOf([...channelsNames], t('modals.errors.uniqueName')),
-  });
+  const RenameChannelSchema = createModalValidationSchema(channelsNames, t);
 
   const handleFormSubmit = (values) => {
     const { name } = values;
@@ -51,7 +48,6 @@ const RenameChannelModal = () => {
       {({ errors, touched, isSubmitting }) => (
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-
             <div className="modal-header">
               <h5 className="modal-title">{t('modals.rename.header')}</h5>
               <button onClick={handleCloseModal} type="button" className="p-0 text-primary btn btn-group-vertical" data-bs-dismiss="modal" aria-label="Close">
@@ -63,7 +59,7 @@ const RenameChannelModal = () => {
             </div>
             <div className="modal-body">
               <Form className="form-group" autoComplete="off">
-                <div className="form-floating mb-2 form-group">
+                <InputFieldWrapper>
                   <Field
                     className="form-control"
                     name="name"
@@ -71,24 +67,22 @@ const RenameChannelModal = () => {
                     innerRef={inputRef}
                     placeholder={t('forms.channel.placeholder')}
                   />
-                </div>
+                </InputFieldWrapper>
                 {touched.name && errors.name && (
-                <div className="mb-2 text-danger">{errors.name}</div>
+                <ErrorMessageContainer>{errors.name}</ErrorMessageContainer>
                 )}
                 <div className="mt-3 d-flex justify-content-between">
-                  <button
-                    className="btn btn-success"
-                    type="submit"
+                  <ButtonForm
+                    type="success"
                     disabled={isSubmitting}
                   >
                     {t('common.send')}
-                    <span className="d-none">{t('common.send')}</span>
-                  </button>
-                  <button onClick={handleCloseModal} type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t('common.cancel')}</button>
+                    <Label>{t('common.send')}</Label>
+                  </ButtonForm>
+                  <ButtonForm onClick={handleCloseModal} type="secondary">{t('common.cancel')}</ButtonForm>
                 </div>
               </Form>
             </div>
-
           </div>
         </div>
       )}

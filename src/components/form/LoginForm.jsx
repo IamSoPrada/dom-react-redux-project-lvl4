@@ -5,6 +5,11 @@ import { Formik, Form, Field } from 'formik';
 import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import ButtonForm from '../common/components/Button.jsx';
+import Title from '../common/components/Title.jsx';
+import InputField from '../common/components/InputField.jsx';
+import ErrorMessageContainer from '../common/components/ErrorMessageContainer.jsx';
+import InputFieldWrapper from '../common/components/InputFieldWrapper.jsx';
 import createValidationSchema from './formValidationSchema.js';
 import AuthContext from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
@@ -57,8 +62,8 @@ const LoginForm = () => {
     >
       {({ errors, touched, isSubmitting }) => (
         <Form>
-          <h1 className="text-center mb-4">{t('login.header')}</h1>
-          <div className="form-floating mb-2 form-group">
+          <Title>{t('login.header')}</Title>
+          <InputFieldWrapper>
             <Field
               aria-label={t('forms.login.label')}
               id="username"
@@ -67,31 +72,26 @@ const LoginForm = () => {
               innerRef={inputRef}
               placeholder={t('forms.login.placeholder')}
             />
-          </div>
+          </InputFieldWrapper>
 
           {touched.username && errors.username && (
-          <div className="mb-2 text-danger">{errors.username}</div>
+          <ErrorMessageContainer>{errors.username}</ErrorMessageContainer>
           )}
-          <div className="form-floating mb-2 form-group">
-            <Field
-              aria-label={t('forms.password.label')}
-              id="password"
-              className="form-control"
-              name="password"
-              placeholder={t('forms.password.placeholder')}
+          <InputFieldWrapper>
+            <InputField
+              type="password"
             />
-          </div>
+          </InputFieldWrapper>
 
           {touched.password && errors.password && (
-          <div className="mb-2 text-danger">{errors.password}</div>
+          <ErrorMessageContainer>{errors.password}</ErrorMessageContainer>
           )}
-          <button
-            className="w-100 mb-3 btn btn-outline-primary"
-            type="submit"
+          <ButtonForm
+            type="primary"
             disabled={isSubmitting}
           >
             {t('login.button')}
-          </button>
+          </ButtonForm>
         </Form>
       )}
     </Formik>

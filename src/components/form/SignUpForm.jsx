@@ -5,6 +5,11 @@ import { Formik, Form, Field } from 'formik';
 import { Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Title from '../common/components/Title.jsx';
+import ButtonForm from '../common/components/Button.jsx';
+import ErrorMessageContainer from '../common/components/ErrorMessageContainer.jsx';
+import InputField from '../common/components/InputField.jsx';
+import InputFieldWrapper from '../common/components/InputFieldWrapper.jsx';
 import FormValidationSchema from './formValidationSchema.js';
 import AuthContext from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
@@ -15,7 +20,7 @@ const SignUpForm = () => {
   const { isAuthenticated, setCredentials } = useContext(AuthContext);
 
   const location = useLocation();
-  const formShema = FormValidationSchema(t, 'signup');
+  const formSchema = FormValidationSchema(t, 'signup');
 
   const handleFormSubmit = async (values, { setErrors }) => {
     try {
@@ -39,7 +44,7 @@ const SignUpForm = () => {
         password: '',
         passwordConfirmation: '',
       }}
-      validationSchema={formShema}
+      validationSchema={formSchema}
       onSubmit={(values, { setErrors, setSubmitting }) => {
         handleFormSubmit(values, { setErrors });
         setSubmitting(false);
@@ -47,8 +52,8 @@ const SignUpForm = () => {
     >
       {({ errors, touched, isSubmitting }) => (
         <Form>
-          <h1 className="text-center mb-4">{t('signup.header')}</h1>
-          <div className="form-floating mb-2 form-group">
+          <Title>{t('signup.header')}</Title>
+          <InputFieldWrapper>
             <Field
               aria-label={t('forms.username.label')}
               id="username"
@@ -57,43 +62,34 @@ const SignUpForm = () => {
               innerRef={inputRef}
               placeholder={t('forms.username.placeholder')}
             />
-          </div>
+          </InputFieldWrapper>
           {touched.username && errors.username && (
-          <div className="mb-2 text-danger">
+          <ErrorMessageContainer>
             {errors.username}
-          </div>
+          </ErrorMessageContainer>
           )}
-          <div className="form-floating mb-2 form-group ">
-            <Field
-              aria-label={t('forms.password.label')}
-              id="password"
-              className="form-control"
-              name="password"
-              placeholder={t('forms.password.placeholder')}
+          <InputFieldWrapper>
+            <InputField
+              type="password"
             />
-          </div>
+          </InputFieldWrapper>
           {touched.password && errors.password && (
-          <div className="mb-2 text-danger">{errors.password}</div>
+          <ErrorMessageContainer>{errors.password}</ErrorMessageContainer>
           )}
-          <div className="form-floating mb-2 form-group">
-            <Field
-              aria-label={t('forms.passwordConfirmation.label')}
-              id="passwordConfirmation"
-              className="form-control"
-              name="passwordConfirmation"
-              placeholder={t('forms.passwordConfirmation.placeholder')}
+          <InputFieldWrapper>
+            <InputField
+              type="passwordConfirmation"
             />
-          </div>
+          </InputFieldWrapper>
           {touched.passwordConfirmation && errors.passwordConfirmation && (
-          <div className="mb-2 text-danger">{errors.passwordConfirmation}</div>
+          <ErrorMessageContainer>{errors.passwordConfirmation}</ErrorMessageContainer>
           )}
-          <button
-            className="w-100 mb-3 btn btn-outline-primary"
-            type="submit"
+          <ButtonForm
+            type="primary"
             disabled={isSubmitting}
           >
             {t('signup.button')}
-          </button>
+          </ButtonForm>
         </Form>
       )}
     </Formik>
