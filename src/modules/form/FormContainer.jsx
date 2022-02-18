@@ -4,34 +4,19 @@ import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import formImage from '../../../assets/form.png';
 
-const LoginFormFooter = () => {
-  const { t } = useTranslation();
-  return (
-    <>
-      <span>
-        {t('login.noAccount')}
-        {' '}
-      </span>
-      <Link to="/signup">{t('login.signup')}</Link>
-    </>
-  );
-};
-
-const SignUpFormFooter = () => {
-  const { t } = useTranslation();
-  return (
-    <>
-      <span>
-        {t('signup.gotAnAccount')}
-        {' '}
-      </span>
-      <Link to="/login">{t('signup.login')}</Link>
-    </>
-  );
-};
+const FormFooter = ({ children, linkText, path }) => (
+  <>
+    <span>
+      {children}
+      {' '}
+    </span>
+    <Link to={path}>{linkText}</Link>
+  </>
+);
 
 const FormContainer = ({ children }) => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   return (
     <div className="row justify-content-center align-content-center h-100">
       <div className="col-12 col-md-8 col-xxl-6">
@@ -48,7 +33,7 @@ const FormContainer = ({ children }) => {
           </div>
           <div className="card-footer p-4">
             <div className="text-center">
-              {pathname === '/signup' ? <SignUpFormFooter /> : <LoginFormFooter />}
+              {pathname === '/signup' ? <FormFooter path="/login" linkText={t('signup.login')}>{t('signup.gotAnAccount')}</FormFooter> : <FormFooter path="/signup" linkText={t('login.signup')}>{t('login.noAccount')}</FormFooter>}
             </div>
           </div>
         </div>
