@@ -15,10 +15,8 @@ export const getChannels = createAsyncThunk('channelsInfo/setInitialState', asyn
     };
     const response = await axios.get(routes.dataPath(), config);
     const { data } = response;
-    console.log(response)
     return data;
   } catch ({ response }) {
-    console.log(response)
     throw new Error('Упс.. Что-то пошло не так.');
   }
 });

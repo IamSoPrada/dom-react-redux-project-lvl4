@@ -43,7 +43,6 @@ const LoginForm = () => {
   useEffect(() => inputRef.current?.focus(), []);
 
   if (isAuthenticated) return <Navigate to="/" state={{ from: location }} />;
-  console.log(location);
   return (
     <Formik
       initialValues={{
