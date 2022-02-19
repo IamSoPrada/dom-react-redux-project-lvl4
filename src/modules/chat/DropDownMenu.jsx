@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import Label from '../common/components/Label.jsx';
 import cn from 'classnames';
 import { actions as dropDownMenuActions } from '../../slices/dropDownSlice.js';
 import { handleOpenModal, modalRemoveChannelInfo, modalRenameChannelInfo } from '../modals/utils.js';
@@ -28,16 +29,9 @@ const DropDownMenu = ({ id }) => {
 
   return (
     <div className="btn-group">
-      <button onClick={() => setCurrentDropDownMenuOpened(id)} type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded={isDropDownMenuOpened}><span className="d-none">Управление каналом</span></button>
-
+      <button onClick={() => setCurrentDropDownMenuOpened(id)} type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded={isDropDownMenuOpened}><Label>Управление каналом</Label></button>
       <div
         className={dropdownMenuClasses}
-        style={{
-          position: 'absolute', inset: 'auto auto 0px 0px', margin: '0px', transform: 'translate3d(0, -38.066px, 0px)',
-        }}
-        data-popper-placement="top-start"
-        data-popper-escaped="false"
-        data-popper-reference-hidden="false"
       >
         <a role="button" onClick={() => handleOpenModal(removeChannelInfo)} className="dropdown-item">
           {t('channels.buttons.delete')}
