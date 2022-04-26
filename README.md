@@ -1,21 +1,20 @@
 # Hexlet Chat
 
-Данный репозиторий является 4 проектом по курсу Frontend разработки.
- Hexlet Chat - веб приложение чат, упрощенный аналог Slack, с возможностью создания, редактирования, удаления каналов.
+This repository is the 4th project on the Frontend development course. Hexlet Chat - web chat application, simplified analog of Slack, with the ability to create, edit, delete channels.
 
-Проект выложен на Heroku : [клик сюда](https://frontend-project-hexlet-4.herokuapp.com/).
+The project is posted on Heroku : [click here](https://frontend-project-hexlet-4.herokuapp.com/).
 
-**Используемый стек :** 
+**Used stack  :** 
 +	[React](https://reactjs.org/)
  + CSS: [bootstrap](https://getbootstrap.com/) 
  + App state management:  [Redux RTK](https://redux-toolkit.js.org/tutorials/typescript) .
  + Error handling : [Rollbar](https://rollbar.com/).
  
-**Полученные навыки в ходе выполнения проекта:**  
+**Skills learned in the course of the project:**  
 - react hooks  
-- redux tool kit  
-- интернационализация с помощью [react-i18next](https://react.i18next.com/)  
-- Фильтрация black listed слов с помощью Profanity Filter  
+- redux tool kit
+- internationalization with [react-i18next](https://react.i18next.com/)  
+- Filtering black listed words with Profanity Filter    
 - exception reporting c Rollbar  
 - websokets  
 - axios
